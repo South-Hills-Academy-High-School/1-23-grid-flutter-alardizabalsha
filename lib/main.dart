@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(),
         routes: {
           '/score':(context) => const Score(),
+
         },
       ),
     );
@@ -37,6 +38,7 @@ class MyAppState extends ChangeNotifier {
     if (!opacityList.contains(1.0)) {
       stopwatch.stop();
       print(stopwatch.elapsedMilliseconds / 1000.0);
+      Navigator.pushNamed(context, '/scores');
     }
     notifyListeners();
   }
@@ -48,6 +50,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
@@ -83,6 +86,29 @@ var gridVisible = appState.opacityList;
           );
         },
       ),
+    );
+  }
+}
+
+class Score extends StatelessWidget {
+  const Score({super.key});
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+    return Scaffold(
+      body: Column(
+        children: [
+          Text('Your time Was: '
+          '${appState.stopwatch.elapsedMilliseconds / 100.0}'
+           ' seconds'),
+           ElevatedButton(
+            child: Text('New Game'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+           ),
+        ],
+      )
     );
   }
 }
