@@ -31,6 +31,8 @@ class MyAppState extends ChangeNotifier {
   var opacityList = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0];
 
   void toggleVisible(context, i) {
+
+
     if(!opacityList.contains(0.0)) {
       stopwatch.start();
     }
@@ -42,7 +44,15 @@ class MyAppState extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+void newGame() {
+  stopwatch.reset();
+  opacityList = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,];
+  notifyListeners();
 }
+}
+
+
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -104,6 +114,7 @@ class Score extends StatelessWidget {
            ElevatedButton(
             child: Text('New Game'),
             onPressed: () {
+              appState.newGame();
               Navigator.pop(context);
             },
            ),
